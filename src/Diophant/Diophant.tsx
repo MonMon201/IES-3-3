@@ -9,7 +9,9 @@ import {
 import { GeneticDiophantus } from "./Diophant.Logic";
 
 export const Diophant = () => {
-  const [output, setOutput] = useState<number>(20);
+  const [output, setOutput] = useState<number>(0);
+  const [mutationProbability, setMutationProbability] = useState<number>(0);
+  const [populationSize, setPopulationSize] = useState<number>(0);
   const [a, setA] = useState<void | number>(0)
   const [b, setB] = useState<void | number>(0)
   const [c, setC] = useState<void | number>(0)
@@ -18,6 +20,16 @@ export const Diophant = () => {
   const [k2, setk2] = useState(2);
   const [k3, setk3] = useState(3);
   const [k4, setk4] = useState(4);
+
+  const onChangeFloat = (e: React.ChangeEvent<{ name?: string; value: unknown; }>, setValue: (newValue: number) => void) => {
+    if (typeof e.target.value === 'string'){
+      const value = parseInt(e.target.value);
+      if (typeof e.target.value === 'string') {
+        setValue(value);
+      }
+    }
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>, setValue: (newValue: number) => void) => {
     const value = parseInt(e.target.value);
     console.log(value)
@@ -27,7 +39,7 @@ export const Diophant = () => {
   };
 
   const compute = () => {
-    const result = new GeneticDiophantus({task: [k1, k2, k3, k4], target: 20}).solve();
+    const result = new GeneticDiophantus({task: [k1, k2, k3, k4], target: output, mutationProbability, populationSize}).solve();
     if (result) {
       setA(result[0])
       setB(result[1])
@@ -37,6 +49,24 @@ export const Diophant = () => {
   };
   return (
     <StyledDiophant>
+      <StyledInput>
+      <StyledTextField
+        variant={"outlined"}
+        value={mutationProbability}
+        placeholder={"Mutation Probability"}
+        onChange={(e) => {
+          onChangeFloat(e, setMutationProbability);
+        }}
+       />
+       <StyledTextField
+         variant={"outlined"}
+         value={populationSize}
+         placeholder={"Population Size"}
+         onChange={(e) => {
+           onChange(e, setPopulationSize);
+         }}
+        />
+      </StyledInput>
       <StyledInput>
         <StyledTextField
           variant={"outlined"}

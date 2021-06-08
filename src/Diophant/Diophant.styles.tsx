@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { colors } from "../constants";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Select } from "@material-ui/core";
 
 export const StyledDiophant = styled.div`
   display: flex;
@@ -33,3 +33,10 @@ export const StyledInput = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export const StyledSelect = styled(Select)`
+  width: 130px;
+  margin-left: 10px;
+  background: ${colors.white10};
+`;
+
